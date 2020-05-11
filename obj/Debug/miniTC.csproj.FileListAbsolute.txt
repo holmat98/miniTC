@@ -13,3 +13,9 @@ C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csproj.G
 C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csproj.CoreCompileInputs.cache
 C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.exe
 C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.pdb
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csproj.CopyComplete

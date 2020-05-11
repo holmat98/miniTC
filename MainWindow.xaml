@@ -4,9 +4,131 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:miniTC"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mvm="clr-namespace:miniTC.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MiniTC" MinHeight="450" MinWidth="800">
+
+    <Window.Resources>
+        <mvm:MainViewModel x:Key="mainViewModel" />
+    </Window.Resources>
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label   Grid.Column="0"
+                     Content="Path: " Width="50" Height="30" 
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 0 240 30"
+                     />
+            <TextBlock Grid.Column="0"
+                     Width="200" Height="30"
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 0 30 30"
+                     Background="LightGray" Foreground="Gray"
+                     Padding="2.5"
+                     FontSize="15"
+                     />
+
+            <Label   Grid.Column="0"
+                     Content="Drive: " Width="50" Height="30" 
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 60 115 0"
+                     />
+
+            <ComboBox 
+                     Grid.Column="0"
+                     Width="75" Height="30"
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 60 30 0"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                     FontSize="15"
+                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=DriveList}"
+                     >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetDrivesList}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </ComboBox>
+
+            <Label   Grid.Column="1"
+                     Content="Path: " Width="50" Height="30" 
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 0 240 30"
+                     />
+            <TextBlock Grid.Column="1"
+                     Width="200" Height="30"
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 0 30 30"
+                     Background="LightGray" Foreground="Gray"
+                     Padding="2.5"
+                     FontSize="15"
+                     />
+
+            <Label   Grid.Column="1"
+                     Content="Drive: " Width="50" Height="30" 
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 60 115 0"
+                     />
+
+            <ComboBox
+                     Grid.Column="1"
+                     Width="75" Height="30"
+                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                     Margin="0 60 30 0"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                     FontSize="15"
+                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=DriveList}"
+                     >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetDrivesList}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListBox 
+                Grid.Column="0"
+                Width="auto" Height="auto"
+                Margin="30 30 30 30"
+                Background="AliceBlue"
+                />
+
+            <ListBox 
+                Grid.Column="1"
+                Width="auto" Height="auto"
+                Margin="30 30 30 30"
+                Background="Aqua"
+                />
+        </Grid>
+
+        <Button Grid.Row="2"
+                Content="Copy"
+                Width="75" Height="30"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                />
+
     </Grid>
 </Window>
