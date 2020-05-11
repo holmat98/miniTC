@@ -1,0 +1,15 @@
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\miniTC.exe.config
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\miniTC.exe
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\miniTC.pdb
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csprojAssemblyReference.cache
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\MainWindow.g.cs
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\App.g.cs
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC_MarkupCompile.cache
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC_MarkupCompile.lref
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\MainWindow.baml
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.g.resources
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.Properties.Resources.resources
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csproj.GenerateResource.cache
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csproj.CoreCompileInputs.cache
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.exe
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.pdb
