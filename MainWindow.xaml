@@ -29,15 +29,16 @@
             <Label   Grid.Column="0"
                      Content="Path: " Width="50" Height="30" 
                      HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 240 30"
+                     Margin="0 0 290 30"
                      />
             <TextBlock Grid.Column="0"
-                     Width="200" Height="30"
+                     Width="250" Height="30"
                      HorizontalAlignment="Right" VerticalAlignment="Center"
                      Margin="0 0 30 30"
                      Background="LightGray" Foreground="Gray"
                      Padding="2.5"
                      FontSize="15"
+                     Text="{Binding Source={StaticResource mainViewModel}, Path=CurrentPath}"
                      />
 
             <Label   Grid.Column="0"
@@ -53,12 +54,17 @@
                      Margin="0 60 30 0"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                      FontSize="15"
-                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=DriveList}"
+                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftDrivesList}"
+                     SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromLList}"
                      >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetDrivesList}" />
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetLeftDrivesList}" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=SelectionChanged}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
@@ -67,10 +73,10 @@
             <Label   Grid.Column="1"
                      Content="Path: " Width="50" Height="30" 
                      HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 240 30"
+                     Margin="0 0 290 30"
                      />
             <TextBlock Grid.Column="1"
-                     Width="200" Height="30"
+                     Width="250" Height="30"
                      HorizontalAlignment="Right" VerticalAlignment="Center"
                      Margin="0 0 30 30"
                      Background="LightGray" Foreground="Gray"
@@ -91,12 +97,12 @@
                      Margin="0 60 30 0"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                      FontSize="15"
-                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=DriveList}"
+                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=RightDrivesList}"
                      >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetDrivesList}" />
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetRightDrivesList}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
@@ -114,6 +120,7 @@
                 Width="auto" Height="auto"
                 Margin="30 30 30 30"
                 Background="AliceBlue"
+                ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftPathList}"
                 />
 
             <ListBox 
