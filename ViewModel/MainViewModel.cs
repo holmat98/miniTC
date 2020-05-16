@@ -38,7 +38,7 @@ namespace miniTC.ViewModel
             }
         }
 
-        public ObservableCollection<string> LeftFilesList
+        public ObservableCollection<PathToFile> LeftFilesList
         {
             get => _leftPanel.FilesList;
             set
@@ -74,7 +74,7 @@ namespace miniTC.ViewModel
             }
         }
 
-        public ObservableCollection<string> RightFilesList
+        public ObservableCollection<PathToFile> RightFilesList
         {
             get => _rightPanel.FilesList;
             set
@@ -153,15 +153,16 @@ namespace miniTC.ViewModel
                 if(_leftSelectionChanged == null)
                 {
                     _leftSelectionChanged = new RelayCommand(
-                        arg => {
+                        arg =>
+                        {
                             FromPath = PathFromLCBox;
                             LeftFilesList.Clear();
-                            for(int i=0; i< Directory.GetFiles(FromPath).Length; i++)
-                                LeftFilesList.Add(Directory.GetFiles(FromPath)[i]);
+                            for (int i=0; i< Directory.GetFiles(_leftPanel.CurrentPath).Length; i++)
+                                LeftFilesList.Add(new PathToFile(Directory.GetFiles(FromPath)[i]));
                             for (int i = 0; i < Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly).Length; i++)
-                                LeftFilesList.Add(Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly)[i]);
+                                LeftFilesList.Add(new PathToFile(Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly)[i]));
                         },
-                        arg => FromPath != null
+                        arg => PathFromLCBox != null
                         );
                 }
 
@@ -181,15 +182,56 @@ namespace miniTC.ViewModel
                             ToPath = PathFromRCBox;
                             RightFilesList.Clear();
                             for (int i = 0; i < Directory.GetFiles(ToPath).Length; i++)
-                                LeftFilesList.Add(Directory.GetFiles(ToPath)[i]);
+                                RightFilesList.Add(new PathToFile(Directory.GetFiles(ToPath)[i]));
+                                
                             for (int i = 0; i < Directory.GetDirectories(ToPath, "*", SearchOption.TopDirectoryOnly).Length; i++)
-                                LeftFilesList.Add(Directory.GetDirectories(ToPath, "*", SearchOption.TopDirectoryOnly)[i]);
+                                RightFilesList.Add(new PathToFile(Directory.GetDirectories(ToPath, "*", SearchOption.TopDirectoryOnly)[i]));
                         },
-                        arg => ToPath != null
+                        arg => PathFromRCBox != null
                         );
                 }
 
                 return _rightSelectionChanged;
+            }
+        }
+
+        private PathToFile _selectedValueLList;
+        public PathToFile SelectedValueLList
+        {
+            get => _selectedValueLList;
+            set
+            {
+                _selectedValueLList = value;
+                onPropertyChanged(nameof(SelectedValueLList));
+            }
+        }
+
+        private ICommand _lNewDirectory = null;
+        public ICommand LNewDirectory
+        {
+            get
+            {
+                if(_lNewDirectory == null)
+                {
+                    _lNewDirectory = new RelayCommand(
+                        arg => {
+                            if(Directory.Exists(SelectedValueLList.CurrentPath+@"\"))
+                            {
+                                FromPath = SelectedValueLList.CurrentPath + @"\";
+                                LeftFilesList.Clear();
+                                MessageBox.Show(FromPath);
+                                for (int i = 0; i < Directory.GetFiles(FromPath).Length; i++)
+                                    LeftFilesList.Add(new PathToFile(Directory.GetFiles(FromPath)[i]));
+
+                                for (int i = 0; i < Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly).Length; i++)
+                                    LeftFilesList.Add(new PathToFile(Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly)[i]));
+                            }
+                        },
+                        arg => SelectedValueLList != null
+                        );
+                }
+
+                return _lNewDirectory;
             }
         }
 

@@ -127,7 +127,16 @@
                 Margin="30 30 30 30"
                 Background="AliceBlue"
                 ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftFilesList}"
-                />
+                SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=SelectedValueLList}"
+            >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=LNewDirectory}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
+            </ListBox>
 
             <ListBox 
                 Grid.Column="1"
