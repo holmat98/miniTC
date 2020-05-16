@@ -38,7 +38,7 @@
                      Background="LightGray" Foreground="Gray"
                      Padding="2.5"
                      FontSize="15"
-                     Text="{Binding Source={StaticResource mainViewModel}, Path=CurrentPath}"
+                     Text="{Binding Source={StaticResource mainViewModel}, Path=FromPath}"
                      />
 
             <Label   Grid.Column="0"
@@ -55,7 +55,7 @@
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                      FontSize="15"
                      ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftDrivesList}"
-                     SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromLList}"
+                     SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromLCBox}"
                      >
 
                 <i:Interaction.Triggers>
@@ -64,7 +64,7 @@
                     </i:EventTrigger>
 
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=SelectionChanged}" />
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=LeftSelectionChanged}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
@@ -82,6 +82,7 @@
                      Background="LightGray" Foreground="Gray"
                      Padding="2.5"
                      FontSize="15"
+                     Text="{Binding Source={StaticResource mainViewModel}, Path=ToPath}"
                      />
 
             <Label   Grid.Column="1"
@@ -98,11 +99,16 @@
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                      FontSize="15"
                      ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=RightDrivesList}"
+                     SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromRCBox}"
                      >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
                         <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetRightDrivesList}" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=RightSelectionChanged}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
@@ -120,7 +126,7 @@
                 Width="auto" Height="auto"
                 Margin="30 30 30 30"
                 Background="AliceBlue"
-                ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftPathList}"
+                ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftFilesList}"
                 />
 
             <ListBox 
@@ -128,6 +134,7 @@
                 Width="auto" Height="auto"
                 Margin="30 30 30 30"
                 Background="Aqua"
+                ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=RightFilesList}"
                 />
         </Grid>
 

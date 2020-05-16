@@ -8,68 +8,105 @@ using System.IO;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using miniTC.Model;
+using System.Windows;
 
 namespace miniTC.ViewModel
 {
     class MainViewModel : ViewModelBase
     {
-        private string[] _leftdrivesList;
+        #region Left Panel
+
+        private PanelTC _leftPanel = new PanelTC();
+
+        public string FromPath
+        {
+            get => _leftPanel.CurrentPath;
+            set
+            {
+                _leftPanel.CurrentPath = value;
+                onPropertyChanged(nameof(FromPath));
+            }
+        }
 
         public string[] LeftDrivesList
         {
-            get => _leftdrivesList;
+            get => _leftPanel.DrivesList;
             set
             {
-                _leftdrivesList = value;
+                _leftPanel.DrivesList = value;
                 onPropertyChanged(nameof(LeftDrivesList));
             }
         }
 
-        private string[] _rightdrivesList;
+        public ObservableCollection<string> LeftFilesList
+        {
+            get => _leftPanel.FilesList;
+            set
+            {
+                _leftPanel.FilesList = value;
+                onPropertyChanged(nameof(LeftFilesList));
+            }
+        }
+
+        #endregion
+
+        #region Right Panel
+
+        private PanelTC _rightPanel = new PanelTC();
+
+        public string ToPath
+        {
+            get => _rightPanel.CurrentPath;
+            set
+            {
+                _rightPanel.CurrentPath = value;
+                onPropertyChanged(nameof(ToPath));
+            }
+        }
 
         public string[] RightDrivesList
         {
-            get => _rightdrivesList;
+            get => _rightPanel.DrivesList;
             set
             {
-                _rightdrivesList = value;
+                _rightPanel.DrivesList = value;
                 onPropertyChanged(nameof(RightDrivesList));
             }
         }
 
-        private string _pathFromLList;
-        public string PathFromLList
+        public ObservableCollection<string> RightFilesList
         {
-            get => _pathFromLList;
+            get => _rightPanel.FilesList;
             set
             {
-                _pathFromLList = value;
-                onPropertyChanged(nameof(PathFromLList));
+                _rightPanel.FilesList = value;
+                onPropertyChanged(nameof(RightFilesList));
             }
         }
 
-        private string _currentPath;
-        public string CurrentPath
+        #endregion
+
+        private string _pathFromLCBox;
+        public string PathFromLCBox
         {
-            get => _currentPath;
+            get => _pathFromLCBox;
             set
             {
-                _currentPath = value;
-                onPropertyChanged(nameof(CurrentPath));
+                _pathFromLCBox = value;
+                onPropertyChanged(nameof(PathFromLCBox));
             }
         }
 
-        private List<string> _leftPathList;
-        public List<string> LeftPathList
+        private string _pathFromRCBox;
+        public string PathFromRCBox
         {
-            get => _leftPathList;
+            get => _pathFromRCBox;
             set
             {
-                _leftPathList = value;
-                onPropertyChanged(nameof(LeftPathList));
+                _pathFromRCBox = value;
+                onPropertyChanged(nameof(PathFromRCBox));
             }
         }
-
 
         private ICommand _getRightDrivesList = null;
         public ICommand GetRightDrivesList
@@ -99,7 +136,8 @@ namespace miniTC.ViewModel
                     _getLeftDrivesList = new RelayCommand(
                         arg => {
                             LeftDrivesList = new string[Environment.GetLogicalDrives().Length];
-                            LeftDrivesList = Environment.GetLogicalDrives(); },
+                            LeftDrivesList = Environment.GetLogicalDrives();
+                        },
                         arg => true
                         );
                 }
@@ -107,24 +145,51 @@ namespace miniTC.ViewModel
             }
         }
 
-        private ICommand _selectionChanged = null;
-        public ICommand SelectionChanged
+        private ICommand _leftSelectionChanged = null;
+        public ICommand LeftSelectionChanged
         {
             get
             {
-                if(_selectionChanged == null)
+                if(_leftSelectionChanged == null)
                 {
-                    _selectionChanged = new RelayCommand(
-                        arg => { 
-                            CurrentPath = PathFromLList;
-                            LeftPathList = Directory.GetFiles(PathFromLList).ToList<string>();
-                            LeftPathList.AddRange(Directory.GetDirectories(PathFromLList).ToList<string>());
+                    _leftSelectionChanged = new RelayCommand(
+                        arg => {
+                            FromPath = PathFromLCBox;
+                            LeftFilesList.Clear();
+                            for(int i=0; i< Directory.GetFiles(FromPath).Length; i++)
+                                LeftFilesList.Add(Directory.GetFiles(FromPath)[i]);
+                            for (int i = 0; i < Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly).Length; i++)
+                                LeftFilesList.Add(Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly)[i]);
                         },
-                        arg => PathFromLList != null
+                        arg => FromPath != null
                         );
                 }
 
-                return _selectionChanged;
+                return _leftSelectionChanged;
+            }
+        }
+
+        private ICommand _rightSelectionChanged = null;
+        public ICommand RightSelectionChanged
+        {
+            get
+            {
+                if(_rightSelectionChanged == null)
+                {
+                    _rightSelectionChanged = new RelayCommand(
+                        arg => {
+                            ToPath = PathFromRCBox;
+                            RightFilesList.Clear();
+                            for (int i = 0; i < Directory.GetFiles(ToPath).Length; i++)
+                                LeftFilesList.Add(Directory.GetFiles(ToPath)[i]);
+                            for (int i = 0; i < Directory.GetDirectories(ToPath, "*", SearchOption.TopDirectoryOnly).Length; i++)
+                                LeftFilesList.Add(Directory.GetDirectories(ToPath, "*", SearchOption.TopDirectoryOnly)[i]);
+                        },
+                        arg => ToPath != null
+                        );
+                }
+
+                return _rightSelectionChanged;
             }
         }
 
