@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace miniTC.Model
 {
     class PathToFile
     {
         private string _currentPath;
+        private short _code;
         public string CurrentPath
         {
             get => _currentPath;
@@ -20,14 +22,18 @@ namespace miniTC.Model
 
         public PathToFile() { }
 
-        public PathToFile(string currentPath)
+        public PathToFile(string currentPath, short code)
         {
             _currentPath = currentPath;
+            _code = code;
         }
 
         public override string ToString()
         {
-            return String.Format("<D>"+_currentPath.Substring(_currentPath.LastIndexOf(@"\")+1));
+            if (_code == 0)
+                return "<D>" + _currentPath.Substring(_currentPath.LastIndexOf(@"\") + 1);
+            else
+                return "...";
         }
     }
 }

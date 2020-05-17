@@ -144,7 +144,17 @@
                 Margin="30 30 30 30"
                 Background="Aqua"
                 ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=RightFilesList}"
-                />
+                SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=SelectedValueRList}"
+            >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=RNewDirectory}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
+
+            </ListBox>
+
         </Grid>
 
         <Button Grid.Row="2"
