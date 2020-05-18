@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace miniTC.Model
 {
-    class PathToFile
+    public class PathToFile
     {
         private string _currentPath;
         private short _code;

@@ -312,17 +312,18 @@ namespace miniTC.ViewModel
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
             if(!dir.Exists)
             {
-                throw new DirectoryNotFoundException("Nie znaleziono takiej ścieżki" + sourceDirName);
+                throw new DirectoryNotFoundException("Nie znaleziono ścieżki" + sourceDirName);
             }
 
             DirectoryInfo[] dirs = dir.GetDirectories();
-            if (!Directory.Exists(destDirName))
-                Directory.CreateDirectory(destDirName);
+            string tmp = Path.Combine(destDirName, sourceDirName.Substring(sourceDirName.LastIndexOf(@"\") + 1));
+            if (!Directory.Exists(tmp))
+                Directory.CreateDirectory(Path.Combine(tmp));
 
             FileInfo[] files = dir.GetFiles();
             foreach(FileInfo file in files)
             {
-                string tempPath = Path.Combine(destDirName, file.Name);
+                string tempPath = Path.Combine(tmp, file.Name);
                 file.CopyTo(tempPath, false);
             }
 
@@ -330,7 +331,7 @@ namespace miniTC.ViewModel
             {
                 foreach(DirectoryInfo directory in dirs)
                 {
-                    string tempPath = Path.Combine(destDirName, directory.Name);
+                    string tempPath = Path.Combine(tmp, directory.Name);
                     DirectoryCopy(directory.FullName, tempPath, copySubDirs);
                 }
             }

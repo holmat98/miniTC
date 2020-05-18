@@ -19,3 +19,6 @@ C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\System.Windows.
 C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\Microsoft.Expression.Interactions.xml
 C:\Users\matih\Documents\semestr4\programowanie\miniTC\bin\Debug\System.Windows.Interactivity.xml
 C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.csproj.CopyComplete
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\Controls\TCPanel.g.cs
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\Controls\TCPanel.baml
+C:\Users\matih\Documents\semestr4\programowanie\miniTC\obj\Debug\miniTC.Controls.Resources.TCPanelResources.resources

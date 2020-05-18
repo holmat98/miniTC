@@ -61,11 +61,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Resources\TCPanelResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TCPanelResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TCPanel.xaml.cs">
+      <DependentUpon>TCPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\PanelTC.cs" />
     <Compile Include="Model\PathToFile.cs" />
     <Compile Include="ViewModel\BaseClass\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClass\ViewModelBase.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Page Include="Controls\TCPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,6 +105,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Controls\Resources\TCPanelResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TCPanelResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
