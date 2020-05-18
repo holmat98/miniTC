@@ -228,10 +228,9 @@ namespace miniTC.ViewModel
                         arg => {
                             if(Directory.Exists(SelectedValueLList.CurrentPath))
                             {
-                                //string tmp = FromPath;
                                 FromPath = SelectedValueLList.CurrentPath;
                                 LeftFilesList.Clear();
-                                if (FromPath.Length > 3)
+                                if (Directory.GetParent(FromPath) != null)
                                     LeftFilesList.Add(new PathToFile(Directory.GetParent(FromPath).ToString(), 1));
                                 _leftPanel.GoToNewPath(FromPath);
                             }
@@ -255,10 +254,9 @@ namespace miniTC.ViewModel
                         arg => {
                             if (Directory.Exists(SelectedValueRList.CurrentPath))
                             {
-                                //string tmp = FromPath;
                                 ToPath = SelectedValueRList.CurrentPath;
                                 RightFilesList.Clear();
-                                if (ToPath.Length > 3)
+                                if (Directory.GetParent(ToPath) != null)
                                     RightFilesList.Add(new PathToFile(Directory.GetParent(ToPath).ToString(), 1));
                                 _rightPanel.GoToNewPath(ToPath);
                             }
@@ -268,6 +266,73 @@ namespace miniTC.ViewModel
                 }
 
                 return _rNewDirectory;
+            }
+        }
+
+
+        private ICommand _copyFile = null;
+        public ICommand CopyFile
+        {
+            get
+            {
+                if(_copyFile == null)
+                {
+                    _copyFile = new RelayCommand(
+                        arg => {
+                            string destPath = Path.Combine(ToPath, SelectedValueLList.CurrentPath.Substring(SelectedValueLList.CurrentPath.LastIndexOf(@"\")+1));
+                            MessageBox.Show(destPath);
+                            if (Directory.GetDirectories(SelectedValueLList.CurrentPath, "*", SearchOption.TopDirectoryOnly) == null)
+                            {
+                                try
+                                {
+                                    File.Copy(SelectedValueLList.CurrentPath, destPath, true);
+                                }
+                                catch (Exception) { }
+                            }
+                            else
+                            {
+                                DirectoryCopy(SelectedValueLList.CurrentPath, ToPath, true);
+                            }
+                            RightFilesList.Clear();
+                            if (Directory.GetParent(ToPath) != null)
+                                RightFilesList.Add(new PathToFile(Directory.GetParent(ToPath).ToString(), 1));
+                            _rightPanel.GoToNewPath(ToPath);
+
+                        },
+                        arg => SelectedValueLList != null && ToPath != null && ToPath != ""
+                        );
+                }
+
+                return _copyFile;
+            }
+        }
+
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            if(!dir.Exists)
+            {
+                throw new DirectoryNotFoundException("Nie znaleziono takiej ścieżki" + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            if (!Directory.Exists(destDirName))
+                Directory.CreateDirectory(destDirName);
+
+            FileInfo[] files = dir.GetFiles();
+            foreach(FileInfo file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(tempPath, false);
+            }
+
+            if(copySubDirs)
+            {
+                foreach(DirectoryInfo directory in dirs)
+                {
+                    string tempPath = Path.Combine(destDirName, directory.Name);
+                    DirectoryCopy(directory.FullName, tempPath, copySubDirs);
+                }
             }
         }
 

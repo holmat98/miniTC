@@ -161,6 +161,7 @@
                 Content="Copy"
                 Width="75" Height="30"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                Command="{Binding Source={StaticResource mainViewModel}, Path=CopyFile}"
                 />
 
     </Grid>
