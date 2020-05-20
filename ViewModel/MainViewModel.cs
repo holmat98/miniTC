@@ -48,6 +48,28 @@ namespace miniTC.ViewModel
             }
         }
 
+        private string _pathFromLCBox;
+        public string PathFromLCBox
+        {
+            get => _pathFromLCBox;
+            set
+            {
+                _pathFromLCBox = value;
+                onPropertyChanged(nameof(PathFromLCBox));
+            }
+        }
+
+        private PathToFile _selectedValueLList;
+        public PathToFile SelectedValueLList
+        {
+            get => _selectedValueLList;
+            set
+            {
+                _selectedValueLList = value;
+                onPropertyChanged(nameof(SelectedValueLList));
+            }
+        }
+
         #endregion
 
         #region Right Panel
@@ -84,19 +106,6 @@ namespace miniTC.ViewModel
             }
         }
 
-        #endregion
-
-        private string _pathFromLCBox;
-        public string PathFromLCBox
-        {
-            get => _pathFromLCBox;
-            set
-            {
-                _pathFromLCBox = value;
-                onPropertyChanged(nameof(PathFromLCBox));
-            }
-        }
-
         private string _pathFromRCBox;
         public string PathFromRCBox
         {
@@ -108,23 +117,20 @@ namespace miniTC.ViewModel
             }
         }
 
-        private ICommand _getRightDrivesList = null;
-        public ICommand GetRightDrivesList
+        private PathToFile _selectedValueRList;
+        public PathToFile SelectedValueRList
         {
-            get
+            get => _selectedValueRList;
+            set
             {
-                if (_getRightDrivesList == null)
-                {
-                    _getRightDrivesList = new RelayCommand(
-                        arg => {
-                            RightDrivesList = new string[Environment.GetLogicalDrives().Length];
-                            RightDrivesList = Environment.GetLogicalDrives(); },
-                        arg => true
-                        );
-                }
-                return _getRightDrivesList;
+                _selectedValueRList = value;
+                onPropertyChanged(nameof(SelectedValueRList));
             }
         }
+
+        #endregion
+
+        #region Methods using on Left Panel
 
         private ICommand _getLeftDrivesList = null;
         public ICommand GetLeftDrivesList
@@ -150,14 +156,15 @@ namespace miniTC.ViewModel
         {
             get
             {
-                if(_leftSelectionChanged == null)
+                if (_leftSelectionChanged == null)
                 {
                     _leftSelectionChanged = new RelayCommand(
                         arg =>
                         {
                             FromPath = PathFromLCBox;
                             LeftFilesList.Clear();
-                            for (int i=0; i< Directory.GetFiles(_leftPanel.CurrentPath).Length; i++)
+
+                            for (int i = 0; i < Directory.GetFiles(_leftPanel.CurrentPath).Length; i++)
                                 LeftFilesList.Add(new PathToFile(Directory.GetFiles(FromPath)[i], 0));
                             for (int i = 0; i < Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly).Length; i++)
                                 LeftFilesList.Add(new PathToFile(Directory.GetDirectories(FromPath, "*", SearchOption.TopDirectoryOnly)[i], 0));
@@ -169,6 +176,54 @@ namespace miniTC.ViewModel
                 return _leftSelectionChanged;
             }
         }
+
+        private ICommand _lNewDirectory = null;
+        public ICommand LNewDirectory
+        {
+            get
+            {
+                if (_lNewDirectory == null)
+                {
+                    _lNewDirectory = new RelayCommand(
+                        arg => {
+                            if (Directory.Exists(SelectedValueLList.CurrentPath))
+                            {
+                                FromPath = SelectedValueLList.CurrentPath;
+                                LeftFilesList.Clear();
+                                if (Directory.GetParent(FromPath) != null)
+                                    LeftFilesList.Add(new PathToFile(Directory.GetParent(FromPath).ToString(), 1));
+                                _leftPanel.GoToNewPath(FromPath);
+                            }
+                        },
+                        arg => SelectedValueLList != null
+                        );
+                }
+
+                return _lNewDirectory;
+            }
+        }
+
+        #endregion
+
+        #region Methods using on Right Panel
+
+        private ICommand _getRightDrivesList = null;
+        public ICommand GetRightDrivesList
+        {
+            get
+            {
+                if (_getRightDrivesList == null)
+                {
+                    _getRightDrivesList = new RelayCommand(
+                        arg => {
+                            RightDrivesList = new string[Environment.GetLogicalDrives().Length];
+                            RightDrivesList = Environment.GetLogicalDrives(); },
+                        arg => true
+                        );
+                }
+                return _getRightDrivesList;
+            }
+        }  
 
         private ICommand _rightSelectionChanged = null;
         public ICommand RightSelectionChanged
@@ -193,55 +248,7 @@ namespace miniTC.ViewModel
 
                 return _rightSelectionChanged;
             }
-        }
-
-        private PathToFile _selectedValueLList;
-        public PathToFile SelectedValueLList
-        {
-            get => _selectedValueLList;
-            set
-            {
-                _selectedValueLList = value;
-                onPropertyChanged(nameof(SelectedValueLList));
-            }
-        }
-
-        private PathToFile _selectedValueRList;
-        public PathToFile SelectedValueRList
-        {
-            get => _selectedValueRList;
-            set
-            {
-                _selectedValueRList = value;
-                onPropertyChanged(nameof(SelectedValueRList));
-            }
-        }
-
-        private ICommand _lNewDirectory = null;
-        public ICommand LNewDirectory
-        {
-            get
-            {
-                if(_lNewDirectory == null)
-                {
-                    _lNewDirectory = new RelayCommand(
-                        arg => {
-                            if(Directory.Exists(SelectedValueLList.CurrentPath))
-                            {
-                                FromPath = SelectedValueLList.CurrentPath;
-                                LeftFilesList.Clear();
-                                if (Directory.GetParent(FromPath) != null)
-                                    LeftFilesList.Add(new PathToFile(Directory.GetParent(FromPath).ToString(), 1));
-                                _leftPanel.GoToNewPath(FromPath);
-                            }
-                        },
-                        arg => SelectedValueLList != null
-                        );
-                }
-
-                return _lNewDirectory;
-            }
-        }
+        }   
 
         private ICommand _rNewDirectory = null;
         public ICommand RNewDirectory
@@ -269,6 +276,9 @@ namespace miniTC.ViewModel
             }
         }
 
+        #endregion
+
+        #region File and directories copying methods
 
         private ICommand _copyFile = null;
         public ICommand CopyFile
@@ -280,17 +290,11 @@ namespace miniTC.ViewModel
                     _copyFile = new RelayCommand(
                         arg => {
                             string destPath = Path.Combine(ToPath, SelectedValueLList.CurrentPath.Substring(SelectedValueLList.CurrentPath.LastIndexOf(@"\")+1));
-                            MessageBox.Show(destPath);
-                            if (Directory.GetDirectories(SelectedValueLList.CurrentPath, "*", SearchOption.TopDirectoryOnly) == null)
+                            try
                             {
-                                try
-                                {
-                                    File.Copy(SelectedValueLList.CurrentPath, destPath, true);
-                                }
-                                catch (Exception) { }
+                                File.Copy(SelectedValueLList.CurrentPath, destPath, true);
                             }
-                            else
-                            {
+                            catch (Exception) {
                                 DirectoryCopy(SelectedValueLList.CurrentPath, ToPath, true);
                             }
                             RightFilesList.Clear();
@@ -324,7 +328,11 @@ namespace miniTC.ViewModel
             foreach(FileInfo file in files)
             {
                 string tempPath = Path.Combine(tmp, file.Name);
-                file.CopyTo(tempPath, false);
+                try
+                {
+                    file.CopyTo(tempPath, false);
+                }
+                catch (Exception) { }
             }
 
             if(copySubDirs)
@@ -337,5 +345,6 @@ namespace miniTC.ViewModel
             }
         }
 
+        #endregion
     }
 }

@@ -49,6 +49,8 @@ namespace miniTC.Controls
 
         public static readonly DependencyProperty CBBoxItemSourceProperty = DependencyProperty.Register("CBBoxItemSource", typeof(string[]), typeof(TCPanel), new PropertyMetadata(null));
 
+        //public string[] CBBoxItemSource { get; set; }
+
         public string CBBoxSelectedItem
         {
             get => (string)GetValue(CBBoxSelectedItemProperty);
@@ -68,8 +70,8 @@ namespace miniTC.Controls
                 SetValue(CBBoxGotFocusProperty, value);
             }
         }
-
         public static readonly DependencyProperty CBBoxGotFocusProperty = DependencyProperty.Register("CBBoxGotFocus", typeof(ICommand), typeof(TCPanel), new PropertyMetadata(null));
+        
         public ICommand CBBoxSelChng
         {
             get => (ICommand)GetValue(CBBoxSelChngProperty);
@@ -81,26 +83,26 @@ namespace miniTC.Controls
 
         public static readonly DependencyProperty CBBoxSelChngProperty = DependencyProperty.Register("CBBoxSelChng", typeof(ICommand), typeof(TCPanel), new PropertyMetadata(null));
 
-        public ObservableCollection<object> CurrentPathContents
+        public ObservableCollection<PathToFile> CurrentPathContents
         {
-            get => (ObservableCollection<object>)GetValue(CurrentPathContentsProperty);
+            get => (ObservableCollection<PathToFile>)GetValue(CurrentPathContentsProperty);
             set
             {
                 SetValue(CurrentPathContentsProperty, value);
             }
         }
-        public static readonly DependencyProperty CurrentPathContentsProperty = DependencyProperty.Register("CurrentPathContents", typeof(ObservableCollection<object>), typeof(TCPanel), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentPathContentsProperty = DependencyProperty.Register("CurrentPathContents", typeof(ObservableCollection<PathToFile>), typeof(TCPanel), new PropertyMetadata(null));
 
-        public object SelectedEntry
+        public PathToFile SelectedEntry
         {
-            get => (object)GetValue(SelectedEntryProperty);
+            get => (PathToFile)GetValue(SelectedEntryProperty);
             set
             {
                 SetValue(SelectedEntryProperty, value);
             }
         }
 
-        public static readonly DependencyProperty SelectedEntryProperty = DependencyProperty.Register("SelectedEntry", typeof(object), typeof(TCPanel), new PropertyMetadata(null));
+        public static readonly DependencyProperty SelectedEntryProperty = DependencyProperty.Register("SelectedEntry", typeof(PathToFile), typeof(TCPanel), new PropertyMetadata(null));
 
         public ICommand MDClick
         {

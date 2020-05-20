@@ -10,16 +10,18 @@
         mc:Ignorable="d"
         Title="MiniTC" MinHeight="450" MinWidth="800">
 
-    <Window.Resources>
-        <mvm:MainViewModel x:Key="mainViewModel" />
-    </Window.Resources>
+    <Window.DataContext>
+        <mvm:MainViewModel />
+    </Window.DataContext>
     
     <Grid>
+
+
         <Grid.RowDefinitions>
             <RowDefinition Height="9*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="3*" />
@@ -36,15 +38,15 @@
             <Label   Grid.Column="0"
                      Content="Path: " Width="50" Height="30" 
                      HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 290 30"
+                     Margin="0 0 390 30"
                      />
             <TextBlock Grid.Column="0"
-                     Width="250" Height="30"
+                     Width="350" Height="30"
                      HorizontalAlignment="Right" VerticalAlignment="Center"
                      Margin="0 0 30 30"
                      Background="LightGray" Foreground="Gray"
-                     Padding="2.5"
-                     FontSize="15"
+                     Padding="3"
+                     FontSize="12"
                      Text="{Binding Source={StaticResource mainViewModel}, Path=FromPath}"
                      />
 
@@ -80,15 +82,15 @@
             <Label   Grid.Column="1"
                      Content="Path: " Width="50" Height="30" 
                      HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 290 30"
+                     Margin="0 0 390 30"
                      />
             <TextBlock Grid.Column="1"
-                     Width="250" Height="30"
+                     Width="350" Height="30"
                      HorizontalAlignment="Right" VerticalAlignment="Center"
                      Margin="0 0 30 30"
                      Background="LightGray" Foreground="Gray"
-                     Padding="2.5"
-                     FontSize="15"
+                     Padding="3"
+                     FontSize="12"
                      Text="{Binding Source={StaticResource mainViewModel}, Path=ToPath}"
                      />
 
@@ -164,6 +166,7 @@
 
         </Grid> -->
 
+        
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -171,26 +174,44 @@
             </Grid.ColumnDefinitions>
 
             <controls:TCPanel 
-                CurrentPath="{Binding Source={StaticResource mainViewModel}, Path=FromPath, Mode=TwoWay}"
+                Grid.Column="0"
+                CurrentPath="{Binding Path=FromPath, Mode=TwoWay}"
                 
-                CBBoxItemSource="{Binding Source={StaticResource mainViewModel}, Path=LeftDrivesList}"
-                CBBoxGotFocus="{Binding Source={StaticResource mainViewModel}, Path=GetLeftDrivesList}"
-                CBBoxSelChng="{Binding Source={StaticResource mainViewModel}, Path=LeftSelectionChanged}"
-                CBBoxSelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromLCBox}"
+                CBBoxGotFocus="{Binding Path=GetLeftDrivesList}"
+                CBBoxItemSource="{Binding Path=LeftDrivesList}"
+                CBBoxSelChng="{Binding Path=LeftSelectionChanged}"
+                CBBoxSelectedItem="{Binding Path=PathFromLCBox, Mode=TwoWay}"
                 
-                CurrentPathContents="{Binding Source={StaticResource mainViewModel}, Path=LeftFilesList}"
-                SelectedEntry="{Binding Source={StaticResource mainViewModel}, Path=SelectedValueLList}"
-                MDClick="{Binding Source={StaticResource mainViewModel}, Path=LNewDirectory}"
+                CurrentPathContents="{Binding Path=LeftFilesList, Mode=TwoWay}"
+                SelectedEntry="{Binding Path=SelectedValueLList, Mode=TwoWay}"
+                MDClick="{Binding Path=LNewDirectory}"
+                
             />
 
-        </Grid>
+            <controls:TCPanel 
+                Grid.Column="1"
+                CurrentPath="{Binding Path=ToPath, Mode=TwoWay}"
+                
+                CBBoxGotFocus="{Binding Path=GetRightDrivesList}"
+                CBBoxItemSource="{Binding Path=RightDrivesList}"
+                CBBoxSelChng="{Binding Path=RightSelectionChanged}"
+                CBBoxSelectedItem="{Binding Path=PathFromRCBox, Mode=TwoWay}"
+                
+                CurrentPathContents="{Binding Path=RightFilesList, Mode=TwoWay}"
+                SelectedEntry="{Binding Path=SelectedValueRList, Mode=TwoWay}"
+                MDClick="{Binding Path=RNewDirectory}"
+                
+            />
+
+        </Grid> 
 
         <Button Grid.Row="1"
                 Content="Copy"
                 Width="75" Height="30"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
-                Command="{Binding Source={StaticResource mainViewModel}, Path=CopyFile}"
+                Command="{Binding Path=CopyFile}"
                 />
+        
 
     </Grid>
 </Window>

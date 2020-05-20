@@ -12,7 +12,7 @@ namespace miniTC.Model
 {
     class PanelTC : ViewModelBase
     {
-        private string _currentPath = @"C:\";
+        private string _currentPath = "";
         private ObservableCollection<PathToFile> _filesList = new ObservableCollection<PathToFile>();
         private string[] _drivesList;
 

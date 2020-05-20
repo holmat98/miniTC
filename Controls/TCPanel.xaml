@@ -33,7 +33,7 @@
                   Background="LightGray" Foreground="Gray"
                   Padding="2.5"
                   FontSize="15"
-                  Text="{Binding ElementName=Root, Path=CurrentPath}"
+                  Text="{Binding Path=CurrentPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                   />
 
         <Label   Grid.Row="0"
@@ -50,30 +50,30 @@
                  Margin="0 60 30 0"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  FontSize="15"
-                 ItemsSource="{Binding ElementName=Root, Path=CBBoxItemSource}"
-                 SelectedItem="{Binding ElementName=Root, Path=CBBoxSelectedItem}"
+                 ItemsSource="{Binding Path=CBBoxItemSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                 SelectedItem="{Binding Path=CBBoxSelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
         >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="GotFocus">
-                    <i:InvokeCommandAction Command="{Binding ElementName=Root, Path=CBBoxGotFocus}" />
+                    <i:InvokeCommandAction Command="{Binding Path=CBBoxGotFocus, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" />
                 </i:EventTrigger>
 
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ElementName=Root, Path=CBBoxSelChng}" />
+                    <i:InvokeCommandAction Command="{Binding Path=CBBoxSelChng, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
         </ComboBox>
 
         <ListBox Grid.Row="1" 
-                 ItemsSource="{Binding ElementName=Root, Path=CurrentPathContents}" 
-                 SelectedItem="{Binding ElementName=Root, Path=SelectedEntry}"
+                 ItemsSource="{Binding Path=CurrentPathContents, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+                 SelectedItem="{Binding Path=SelectedEntry, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                  Width="auto" Height="auto"
                  Margin="30 30 30 30"         
         >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding ElementName=Root, Path=MDClick}" />
+                    <i:InvokeCommandAction Command="{Binding Path=MDClick, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
