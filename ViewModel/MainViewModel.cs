@@ -321,7 +321,7 @@ namespace miniTC.ViewModel
 
             DirectoryInfo[] dirs = dir.GetDirectories();
             string tmp = Path.Combine(destDirName, sourceDirName.Substring(sourceDirName.LastIndexOf(@"\") + 1));
-            if (!Directory.Exists(tmp))
+            if (Directory.Exists(tmp) == false)
                 Directory.CreateDirectory(Path.Combine(tmp));
 
             FileInfo[] files = dir.GetFiles();

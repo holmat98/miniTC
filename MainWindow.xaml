@@ -6,167 +6,23 @@
         xmlns:local="clr-namespace:miniTC"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mvm="clr-namespace:miniTC.ViewModel"
+        xmlns:re="clr-namespace:miniTC.Properties"
         xmlns:controls="clr-namespace:miniTC.Controls"
         mc:Ignorable="d"
-        Title="MiniTC" MinHeight="450" MinWidth="800">
+        Title="MiniTC" Height="450" Width="900"
+        MinWidth="900" MinHeight="450">
 
     <Window.DataContext>
         <mvm:MainViewModel />
     </Window.DataContext>
-    
-    <Grid>
 
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="9*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="6*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Label   Grid.Column="0"
-                     Content="Path: " Width="50" Height="30" 
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 390 30"
-                     />
-            <TextBlock Grid.Column="0"
-                     Width="350" Height="30"
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 30 30"
-                     Background="LightGray" Foreground="Gray"
-                     Padding="3"
-                     FontSize="12"
-                     Text="{Binding Source={StaticResource mainViewModel}, Path=FromPath}"
-                     />
-
-            <Label   Grid.Column="0"
-                     Content="Drive: " Width="50" Height="30" 
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 60 115 0"
-                     />
-
-            <ComboBox 
-                     Grid.Column="0"
-                     Width="75" Height="30"
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 60 30 0"
-                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                     FontSize="15"
-                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftDrivesList}"
-                     SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromLCBox}"
-                     >
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="GotFocus">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetLeftDrivesList}" />
-                    </i:EventTrigger>
-
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=LeftSelectionChanged}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-
-            </ComboBox>
-
-            <Label   Grid.Column="1"
-                     Content="Path: " Width="50" Height="30" 
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 390 30"
-                     />
-            <TextBlock Grid.Column="1"
-                     Width="350" Height="30"
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 0 30 30"
-                     Background="LightGray" Foreground="Gray"
-                     Padding="3"
-                     FontSize="12"
-                     Text="{Binding Source={StaticResource mainViewModel}, Path=ToPath}"
-                     />
-
-            <Label   Grid.Column="1"
-                     Content="Drive: " Width="50" Height="30" 
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 60 115 0"
-                     />
-
-            <ComboBox
-                     Grid.Column="1"
-                     Width="75" Height="30"
-                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                     Margin="0 60 30 0"
-                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                     FontSize="15"
-                     ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=RightDrivesList}"
-                     SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=PathFromRCBox}"
-                     >
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="GotFocus">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=GetRightDrivesList}" />
-                    </i:EventTrigger>
-
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=RightSelectionChanged}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-
-            </ComboBox>
-        </Grid>
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <ListBox 
-                Grid.Column="0"
-                Width="auto" Height="auto"
-                Margin="30 30 30 30"
-                Background="AliceBlue"
-                ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=LeftFilesList}"
-                SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=SelectedValueLList}"
-            >
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=LNewDirectory}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                
-            </ListBox>
-
-            <ListBox 
-                Grid.Column="1"
-                Width="auto" Height="auto"
-                Margin="30 30 30 30"
-                Background="Aqua"
-                ItemsSource="{Binding Source={StaticResource mainViewModel}, Path=RightFilesList}"
-                SelectedItem="{Binding Source={StaticResource mainViewModel}, Path=SelectedValueRList}"
-            >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding Source={StaticResource mainViewModel}, Path=RNewDirectory}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                
-
-            </ListBox>
-
-        </Grid> -->
-
-        
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -203,15 +59,14 @@
                 
             />
 
-        </Grid> 
+        </Grid>
 
         <Button Grid.Row="1"
-                Content="Copy"
+                Content="{Binding Source={x:Static re:Resources.CopyText}}"
                 Width="75" Height="30"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 Command="{Binding Path=CopyFile}"
                 />
-        
 
     </Grid>
 </Window>
